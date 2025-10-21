@@ -1,0 +1,24 @@
+{
+  "workouts": [
+    {
+      "id": "1760981316038",
+      "name": "Morning Cardio",
+      "type": "Cardio",
+      "duration": 30,
+      "calories": 250,
+      "date": "2024-01-15",
+      "exercises": [],
+      "createdAt": "2025-10-20T17:28:36.038Z"
+    },
+    {
+      "id": "1760981460705",
+      "name": "Dance",
+      "type": "Cardio",
+      "duration": 25,
+      "calories": 122,
+      "date": "2025-10-20",
+      "exercises": [],
+      "createdAt": "2025-10-20T17:31:00.705Z"
+    }
+  ]
+}

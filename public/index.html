@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Tracker - Fitness Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-dumbbell"></i> Workout Tracker</h1>
+                <p>Track your fitness journey, one workout at a time</p>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav">
+            <button class="nav-btn active" data-section="dashboard">
+                <i class="fas fa-chart-line"></i> Dashboard
+            </button>
+            <button class="nav-btn" data-section="add-workout">
+                <i class="fas fa-plus"></i> Add Workout
+            </button>
+            <button class="nav-btn" data-section="workouts">
+                <i class="fas fa-list"></i> My Workouts
+            </button>
+        </nav>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="total-workouts">0</h3>
+                        <p>Total Workouts</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="total-duration">0</h3>
+                        <p>Total Minutes</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="total-calories">0</h3>
+                        <p>Calories Burned</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="avg-duration">0</h3>
+                        <p>Avg Duration</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h2>Workout Types</h2>
+                <div id="type-chart" class="type-chart"></div>
+            </div>
+        </section>
+
+        <!-- Add Workout Section -->
+        <section id="add-workout" class="section">
+            <div class="form-container">
+                <h2><i class="fas fa-plus-circle"></i> Add New Workout</h2>
+                <form id="workout-form" class="workout-form">
+                    <div class="form-group">
+                        <label for="workout-name">Workout Name</label>
+                        <input type="text" id="workout-name" name="name" required 
+                               placeholder="e.g., Morning Cardio, Strength Training">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="workout-type">Type</label>
+                            <select id="workout-type" name="type" required>
+                                <option value="">Select Type</option>
+                                <option value="Cardio">Cardio</option>
+                                <option value="Strength">Strength Training</option>
+                                <option value="Yoga">Yoga</option>
+                                <option value="HIIT">HIIT</option>
+                                <option value="Running">Running</option>
+                                <option value="Swimming">Swimming</option>
+                                <option value="Cycling">Cycling</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="workout-duration">Duration (minutes)</label>
+                            <input type="number" id="workout-duration" name="duration" required 
+                                   min="1" max="300" placeholder="30">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="workout-calories">Calories Burned</label>
+                            <input type="number" id="workout-calories" name="calories" 
+                                   min="0" placeholder="250">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="workout-date">Date</label>
+                            <input type="date" id="workout-date" name="date" 
+                                   value="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Exercises (Optional)</label>
+                        <div id="exercises-container">
+                            <div class="exercise-item">
+                                <input type="text" placeholder="Exercise name" class="exercise-name">
+                                <input type="number" placeholder="Sets" class="exercise-sets" min="0">
+                                <input type="number" placeholder="Reps" class="exercise-reps" min="0">
+                                <button type="button" class="remove-exercise" onclick="removeExercise(this)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="button" id="add-exercise" class="add-exercise-btn">
+                            <i class="fas fa-plus"></i> Add Exercise
+                        </button>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-save"></i> Save Workout
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Workouts List Section -->
+        <section id="workouts" class="section">
+            <div class="workouts-container">
+                <h2><i class="fas fa-list"></i> My Workouts</h2>
+                <div class="filter-controls">
+                    <select id="type-filter">
+                        <option value="">All Types</option>
+                        <option value="Cardio">Cardio</option>
+                        <option value="Strength">Strength Training</option>
+                        <option value="Yoga">Yoga</option>
+                        <option value="HIIT">HIIT</option>
+                        <option value="Running">Running</option>
+                        <option value="Swimming">Swimming</option>
+                        <option value="Cycling">Cycling</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input type="date" id="date-filter" placeholder="Filter by date">
+                </div>
+                <div id="workouts-list" class="workouts-list"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading" class="loading hidden">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
